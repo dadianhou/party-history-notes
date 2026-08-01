@@ -538,6 +538,29 @@ const essayNotes = {
   }
 }
 
+const essayHub = {
+  title: "申论专区",
+  subtitle: "把党史和中特知识转化为申论中的观点、论证和素材。",
+  method: [
+    ["先定主题", "先判断题目是在考人民立场、改革创新、青年担当、绿色发展，还是治理能力。"],
+    ["再搭逻辑", "用“问题—原因—影响—对策—长效机制”组织答案，不把历史故事当成孤立材料。"],
+    ["最后落地", "把党史和中特中的原则，改写成今天的政策语言、基层场景和治理措施。"],
+    ["避免空泛", "每个观点后面补一个历史依据、现实例子或可执行措施，形成观点和论据的闭环。"]
+  ],
+  framework: [
+    ["开头点题", "当前，面对……的新形势新任务，必须坚持……，把……转化为……。"],
+    ["分析原因", "一方面是……；另一方面是……；更深层次看，关键在于……。"],
+    ["提出对策", "要坚持人民立场，完善……；要坚持系统观念，统筹……；要坚持因地制宜，推动……。"],
+    ["结尾升华", "只有把正确方向、科学理论和务实行动统一起来，才能让发展成果更公平、更充分地惠及人民。"]
+  ],
+  expansion: [
+    ["第一阶段", "继续补充每节课的语音提炼、PPT页码和历史素材。"],
+    ["第二阶段", "为每个申论主题增加“真题题型、审题关键词、分论点模板和示范段落”。"],
+    ["第三阶段", "加入个人收藏、错题记录、材料练习和答案自评，形成申论训练闭环。"],
+    ["第四阶段", "按主题生成“晨读版、考场版、面试版”三种长度的表达。"]
+  ]
+}
+
 const nav = document.querySelector("#lessonNav")
 const title = document.querySelector("#lessonTitle")
 const content = document.querySelector("#lessonContent")
@@ -572,6 +595,23 @@ function updateProgress() {
 
 function renderNav() {
   const query = search.value.trim().toLowerCase()
+  if (filter === "essay") {
+    nav.innerHTML = lessons.filter(item => essayNotes[item.id]).filter(item => {
+      const essay = essayNotes[item.id]
+      return !query || `${essay.topic} ${essay.view} ${essay.angles.join(" ")} ${essay.use}`.toLowerCase().includes(query)
+    }).map((item, index) => `
+      <button class="lesson-link essay-link ${item.id === currentId ? "active" : ""}" data-id="${item.id}">
+        <span class="lesson-index">申${String(index + 1).padStart(2, "0")}</span>
+        <span><strong>${essayNotes[item.id].topic}</strong><small>${item.type}素材 · 点击查看</small></span>
+      </button>
+    `).join("") || `<div class="empty">没有匹配申论主题</div>`
+    nav.querySelectorAll(".lesson-link").forEach(button => button.addEventListener("click", () => {
+      currentId = button.dataset.id
+      render()
+      document.querySelector(`[data-essay-id="${currentId}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }))
+    return
+  }
   nav.innerHTML = lessons
     .filter(item => filter === "all" || item.type === filter)
     .filter(item => !query || `${item.title} ${item.subtitle} ${item.summary} ${item.table.flat().join(" ")}`.toLowerCase().includes(query))
@@ -645,10 +685,62 @@ function renderEssayNotes(item) {
   </section>`
 }
 
+function renderEssayHub() {
+  const query = search.value.trim().toLowerCase()
+  const entries = lessons.filter(item => essayNotes[item.id]).filter(item => {
+    const essay = essayNotes[item.id]
+    return !query || `${essay.topic} ${essay.view} ${essay.angles.join(" ")} ${essay.use}`.toLowerCase().includes(query)
+  })
+  return `
+    <section class="essay-hero">
+      <span class="eyebrow">Essay Toolkit</span>
+      <h3>${essayHub.title}</h3>
+      <p>${essayHub.subtitle}</p>
+      <div class="essay-hero-tags"><span>观点提炼</span><span>历史素材</span><span>政策语言</span><span>答题框架</span></div>
+    </section>
+    <section class="essay-section essay-method-section">
+      <div class="essay-heading"><span class="eyebrow">怎么扩展</span><h3>从知识点到申论答案</h3><p>每个主题都按同一套流程处理，方便持续增加新课程、新材料和真题。</p></div>
+      <div class="essay-method-grid">${essayHub.method.map((item, index) => `<article><b>${String(index + 1).padStart(2, "0")}</b><h4>${item[0]}</h4><p>${item[1]}</p></article>`).join("")}</div>
+    </section>
+    <section class="essay-section">
+      <div class="essay-heading"><span class="eyebrow">主题素材库</span><h3>党史与中特可用主题</h3><p>点击左侧主题可定位，也可以在下面直接浏览全部素材。</p></div>
+      <div class="essay-entry-list">${entries.map(item => {
+        const essay = essayNotes[item.id]
+        return `<article class="essay-entry" data-essay-id="${item.id}">
+          <div class="essay-entry-top"><span>${item.type} · ${item.title.split(" · ")[0]}</span><b>${essay.topic}</b></div>
+          <p>${essay.view}</p>
+          <div class="essay-entry-columns">
+            <div><strong>可展开角度</strong><ul>${essay.angles.map(angle => `<li>${angle}</li>`).join("")}</ul></div>
+            <div><strong>可改写句式</strong><blockquote>${essay.sentence}</blockquote></div>
+          </div>
+          <small>${essay.use}</small>
+        </article>`
+      }).join("") || `<div class="empty">没有匹配申论主题</div>`}</div>
+    </section>
+    <section class="essay-section">
+      <div class="essay-heading"><span class="eyebrow">考场框架</span><h3>通用分析与对策骨架</h3><p>先用结构保证完整，再用具体材料替换空白，避免模板化空话。</p></div>
+      <div class="framework-list">${essayHub.framework.map(item => `<div><strong>${item[0]}</strong><span>${item[1]}</span></div>`).join("")}</div>
+    </section>
+    <section class="essay-section">
+      <div class="essay-heading"><span class="eyebrow">后续路线</span><h3>申论专区还能继续增加什么</h3><p>后续可以继续接入课程转写、真题、范文和个人练习记录。</p></div>
+      <div class="expansion-grid">${essayHub.expansion.map((item, index) => `<div><b>${index + 1}</b><strong>${item[0]}</strong><span>${item[1]}</span></div>`).join("")}</div>
+    </section>
+  `
+}
+
 function render() {
   const item = lessons.find(lesson => lesson.id === currentId) || lessons[0]
   currentId = item.id
-  title.textContent = `${item.title} · ${item.duration}`
+  const isEssay = filter === "essay"
+  title.textContent = isEssay ? "申论专区 · 主题素材与答题框架" : `${item.title} · ${item.duration}`
+  document.querySelector("#markButton").style.display = isEssay ? "none" : ""
+  document.querySelector("#copyLinkButton").style.display = isEssay ? "none" : ""
+  if (isEssay) {
+    content.innerHTML = renderEssayHub()
+    renderNav()
+    updateProgress()
+    return
+  }
   const timeline = item.timeline ? `<div class="card"><h3>时间线</h3>${renderTimeline(item.timeline)}</div>` : ""
   const teacher = `<div class="card"><h3>老师强调</h3><blockquote class="quote">${item.teacher}</blockquote></div>`
   const mistakes = item.mistakes?.length ? `<div class="card"><h3>易错辨析</h3><div class="mistake-list">${item.mistakes.map(row => `<div class="mistake"><b>${row[0]}</b><span>${row[1]}</span></div>`).join("")}</div></div>` : ""
@@ -771,7 +863,7 @@ document.querySelectorAll(".filter").forEach(button => button.addEventListener("
   document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"))
   button.classList.add("active")
   filter = button.dataset.filter
-  renderNav()
+  render()
 }))
 if (localStorage.getItem("party-note-dark") === "1") document.body.classList.add("dark")
 if (location.hash && lessons.some(item => item.id === location.hash.slice(1))) currentId = location.hash.slice(1)
