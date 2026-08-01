@@ -112,6 +112,15 @@ h1 { margin: 3px 0 0; font: 800 24px/1.25 "Noto Serif SC", "Songti SC", serif; }
 .image-strip figure { margin: 0; }
 .image-strip img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); }
 .image-strip figcaption { margin-top: 5px; color: var(--muted); font-size: 10px; }
+.detail-notes { margin-top: 16px; padding: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 9px; box-shadow: 0 10px 28px rgba(28,52,40,.035); }
+.detail-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
+.detail-heading h3 { margin: 4px 0 0; font: 800 20px "Noto Serif SC", serif; }
+.detail-heading p { max-width: 410px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; text-align: right; }
+.detail-note { display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 16px 0; border-top: 1px solid var(--line); }
+.detail-note-number { width: 30px; height: 30px; display: grid; place-items: center; color: var(--red); background: #fae9e5; border-radius: 5px; font: 800 11px "Noto Serif SC", serif; }
+.detail-note h4 { margin: 2px 0 7px; color: var(--green); font: 800 15px "Noto Serif SC", serif; }
+.detail-note ul { margin: 0; padding-left: 18px; }
+.detail-note li { margin: 4px 0; color: #58675f; font-size: 12px; line-height: 1.8; }
 .empty { padding: 36px; color: var(--muted); text-align: center; background: var(--panel); border: 1px dashed var(--line); border-radius: 9px; }
 .toast { position: fixed; left: 50%; bottom: 24px; z-index: 10; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 10px 14px; color: white; background: var(--green); border-radius: 6px; font-size: 12px; transition: .25s ease; }
 .toast.show { transform: translate(-50%, 0); opacity: 1; }
@@ -139,6 +148,8 @@ body.dark .key-table th { background: #1f3127; }
 body.dark .flash { background: #302a1f; }
 body.dark .mistake { background: #39221f; }
 body.dark .hero p, body.dark .hero-stat span, body.dark .hero-stat small { color: #a8bcae; }
+body.dark .detail-note-number { background: #39221f; }
+body.dark .detail-note li { color: #bfcec4; }
 
 @media (max-width: 900px) {
   .app { padding: 20px 16px 50px; }
@@ -160,6 +171,8 @@ body.dark .hero p, body.dark .hero-stat span, body.dark .hero-stat small { color
   .content-top { display: block; }
   .content-actions { margin-top: 14px; }
   .section-grid { grid-template-columns: 1fr; }
+  .detail-heading { display: block; }
+  .detail-heading p { margin-top: 8px; text-align: left; }
   .flash-grid { grid-template-columns: 1fr; }
   .image-strip { grid-template-columns: repeat(2, 1fr); }
   .lesson-nav { grid-template-columns: 1fr; }
