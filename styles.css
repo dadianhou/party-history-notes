@@ -121,6 +121,27 @@ h1 { margin: 3px 0 0; font: 800 24px/1.25 "Noto Serif SC", "Songti SC", serif; }
 .detail-note h4 { margin: 2px 0 7px; color: var(--green); font: 800 15px "Noto Serif SC", serif; }
 .detail-note ul { margin: 0; padding-left: 18px; }
 .detail-note li { margin: 4px 0; color: #58675f; font-size: 12px; line-height: 1.8; }
+.inline-ppt { display: grid; grid-template-columns: 210px 1fr; gap: 9px; align-items: center; width: 100%; margin: 8px 0 12px; padding: 6px; border: 1px solid var(--line); border-radius: 6px; background: #f5f8f5; text-align: left; cursor: zoom-in; }
+.inline-ppt img { width: 210px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+.inline-ppt span { color: var(--muted); font-size: 11px; line-height: 1.6; }
+.voice-note { display: grid; grid-template-columns: 92px 1fr; gap: 8px; margin-top: 11px; padding: 10px 12px; background: #f3f0e8; border-left: 3px solid var(--gold); }
+.voice-note strong { color: #8b672d; font-size: 10px; }
+.voice-note span { color: #756a54; font-size: 11px; line-height: 1.7; }
+.essay-section { margin-top: 16px; padding: 22px; background: #fffaf1; border: 1px solid #ead9b8; border-radius: 9px; }
+.essay-heading { display: flex; justify-content: space-between; align-items: end; gap: 15px; margin-bottom: 15px; }
+.essay-heading h3 { margin: 4px 0 0; color: #735425; font: 800 20px "Noto Serif SC", serif; }
+.essay-heading p { max-width: 470px; margin: 0; color: #8c7854; font-size: 11px; line-height: 1.6; text-align: right; }
+.essay-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 12px; }
+.essay-main, .essay-side { padding: 16px; background: rgba(255,255,255,.7); border: 1px solid #efdfc1; border-radius: 7px; }
+.essay-label { color: #a4772d; font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.essay-main h4 { margin: 6px 0 10px; color: #6e5126; font: 800 16px "Noto Serif SC", serif; }
+.essay-main p { color: #755f3e; font-size: 12px; line-height: 1.8; }
+.essay-main blockquote { margin: 13px 0 0; padding: 12px 14px; color: #6d4f22; background: #f8edda; border-left: 3px solid var(--gold); font: 700 13px/1.8 "Noto Serif SC", serif; }
+.essay-side ul { margin: 8px 0 0; padding-left: 18px; }
+.essay-side li { margin: 5px 0; color: #755f3e; font-size: 11px; line-height: 1.7; }
+.essay-use { display: grid; gap: 4px; margin-top: 14px; padding-top: 10px; border-top: 1px solid #efdfc1; }
+.essay-use strong { color: #a4772d; font-size: 10px; }
+.essay-use span { color: #8c7854; font-size: 10px; line-height: 1.6; }
 .empty { padding: 36px; color: var(--muted); text-align: center; background: var(--panel); border: 1px dashed var(--line); border-radius: 9px; }
 .toast { position: fixed; left: 50%; bottom: 24px; z-index: 10; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; padding: 10px 14px; color: white; background: var(--green); border-radius: 6px; font-size: 12px; transition: .25s ease; }
 .toast.show { transform: translate(-50%, 0); opacity: 1; }
@@ -150,6 +171,13 @@ body.dark .mistake { background: #39221f; }
 body.dark .hero p, body.dark .hero-stat span, body.dark .hero-stat small { color: #a8bcae; }
 body.dark .detail-note-number { background: #39221f; }
 body.dark .detail-note li { color: #bfcec4; }
+body.dark .inline-ppt { background: #1f2b24; }
+body.dark .voice-note { background: #332b1d; }
+body.dark .voice-note span { color: #dec58e; }
+body.dark .essay-section { background: #30291e; border-color: #5a4b30; }
+body.dark .essay-main, body.dark .essay-side { background: rgba(38,31,22,.72); border-color: #5a4b30; }
+body.dark .essay-heading h3, body.dark .essay-main h4, body.dark .essay-main p, body.dark .essay-main blockquote, body.dark .essay-side li { color: #dec58e; }
+body.dark .essay-main blockquote { background: #433620; }
 
 @media (max-width: 900px) {
   .app { padding: 20px 16px 50px; }
@@ -173,6 +201,12 @@ body.dark .detail-note li { color: #bfcec4; }
   .section-grid { grid-template-columns: 1fr; }
   .detail-heading { display: block; }
   .detail-heading p { margin-top: 8px; text-align: left; }
+  .essay-heading { display: block; }
+  .essay-heading p { margin-top: 8px; text-align: left; }
+  .essay-grid { grid-template-columns: 1fr; }
+  .inline-ppt { grid-template-columns: 1fr; }
+  .inline-ppt img { width: 100%; }
+  .voice-note { grid-template-columns: 1fr; gap: 4px; }
   .flash-grid { grid-template-columns: 1fr; }
   .image-strip { grid-template-columns: repeat(2, 1fr); }
   .lesson-nav { grid-template-columns: 1fr; }

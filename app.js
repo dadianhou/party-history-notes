@@ -424,6 +424,120 @@ const detailedNotes = {
   ]
 }
 
+const spokenHighlights = {
+  p1: [
+    "老师提醒：党史题不只考一个年份，近年常把时间排序、诗句或描述和历史事件结合起来考。",
+    "课堂的复习重点是先建立完整历史时间线，再用关键词定位事件，不要把每个事件孤立背诵。"
+  ],
+  p2: [
+    "老师反复区分“主要阵地”和“主要活动基地”：前者是《新青年》，后者是北京大学。",
+    "老师把五四运动讲成一条因果链：巴黎和会外交失败点火，学生先行，工人阶级成为主力，马克思主义传播加速，建党条件成熟。",
+    "老师的会议口令是“一大立党、二大立纲、三大合作、国一成盟、四大领导工农”。"
+  ],
+  p3: [
+    "老师用“发端—奠基—定型”区分南昌起义、三湾改编和古田会议，提醒不要把三者的历史定位混淆。",
+    "老师强调土地革命不是简单的军事行动，而是党独立探索中国革命道路、逐步走向成熟的阶段。",
+    "讲长征时，老师重点突出战略调整和机动作战，尤其是四渡赤水的灵活指挥，而不是只背路线名称。"
+  ],
+  p4: [
+    "老师要求把局部抗战、全民族抗战、统一战线初步形成和正式形成四个关键词准确配对。",
+    "抗战题不能只记单个战役，要同时理解正面战场、敌后战场和全民族抗战的整体关系。"
+  ],
+  p5: [
+    "老师把解放战争概括为抗战胜利后主要矛盾变化、重庆谈判、全面内战、战略进攻、三大战役和渡江战役。",
+    "老师提醒：解放战争的胜利既是军事胜利，也是政治、经济、群众基础和组织能力的综合胜利。"
+  ],
+  p6: [
+    "老师明确说，中特不能只当成纯背诵科目；现在的题目越来越重视政策理解、概念辨析和材料应用。",
+    "老师建议先系统学习，再理解背诵和框架定位；不要试图把文件每个字都背下来，要抓住理论主题和定位词。",
+    "老师还强调，学好中特不仅服务于客观题，也能服务申论写作和面试表达，因为政策理论可以转化为观点、分析框架和案例解释。"
+  ],
+  p7: [
+    "老师的讲解重点是把理论名称、核心问题和核心表述分开记，看到题干关键词先判断它在问哪一个理论。",
+    "社会主义本质要抓“生产力”和“共同富裕”两个记忆支点，再向完整表述展开。"
+  ],
+  p8: [
+    "老师要求把邓小平理论、“三个代表”重要思想和科学发展观放在一条理论发展链上理解，而不是只背四句话。",
+    "科学发展观的四个关键词要和现实发展问题对应：发展、人民、协调可持续、统筹兼顾。"
+  ]
+}
+
+const pptInline = {
+  p2: [
+    ["video_notes_BV1Nu4y1x7y9_p2/assets/01_新文化运动.jpg", "PPT：新文化运动的阵地与基地"],
+    ["video_notes_BV1Nu4y1x7y9_p2/assets/02_五四运动导火索.jpg", "PPT：五四运动导火索"],
+    ["video_notes_BV1Nu4y1x7y9_p2/assets/04_中共一大代表.jpg", "PPT：中共一大与党的成立"],
+    ["video_notes_BV1Nu4y1x7y9_p2/assets/06_国民党一大.jpg", "PPT：国民党一大与第一次国共合作"],
+    ["video_notes_BV1Nu4y1x7y9_p2/assets/08_大革命总结.jpg", "PPT：大革命失败与历史教训"]
+  ],
+  p3: [
+    ["BV1Nu4y1x7y9_p3_土地革命_笔记_assets/01_南昌起义.jpg", "PPT：南昌起义，建军发端"],
+    ["BV1Nu4y1x7y9_p3_土地革命_笔记_assets/02_八七会议.jpg", "PPT：八七会议与土地革命总方针"],
+    ["BV1Nu4y1x7y9_p3_土地革命_笔记_assets/03_古田会议.jpg", "PPT：古田会议，建军定型"],
+    ["BV1Nu4y1x7y9_p3_土地革命_笔记_assets/05_长征路线.jpg", "PPT：红军长征路线"],
+    ["BV1Nu4y1x7y9_p3_土地革命_笔记_assets/06_遵义会议.jpg", "PPT：遵义会议与历史转折"]
+  ]
+}
+
+const essayNotes = {
+  p1: {
+    topic: "以史为鉴、走好中国道路",
+    view: "历史反复证明，发展道路必须立足本国实际，不能简单照搬外部模式；只有把科学理论同中国具体实际相结合，才能把方向优势转化为发展成效。",
+    angles: ["坚持党的领导是历史和人民的选择", "坚持实事求是、具体问题具体分析", "在历史经验中增强战略定力"],
+    sentence: "回望历史，真正具有生命力的道路，从来不是对既有模式的机械复制，而是在实践中形成、在检验中完善、在人民选择中巩固。",
+    use: "适合“道路选择、历史自信、文化自信、战略定力、青年成长”类申论主题。"
+  },
+  p2: {
+    topic: "思想启蒙与青年担当",
+    view: "社会进步既需要先进思想的启蒙，也需要青年和群众把思想转化为行动；思想传播、组织建设和实践斗争相互促进。",
+    angles: ["青年是社会进步的重要力量", "思想解放要转化为社会行动", "个人理想要同国家和民族需要结合"],
+    sentence: "青年之“新”，不只是知识结构的新，更在于能否以开放视野审视现实，以责任担当回应时代，把思想上的觉醒转化为脚踏实地的行动。",
+    use: "适合“青年担当、创新、思想解放、教育、文化建设、爱国主义”类申论主题。"
+  },
+  p3: {
+    topic: "实事求是与自主探索",
+    view: "面对复杂问题，必须从实际出发，尊重规律、灵活调整；真正有效的改革和治理，不是照搬模板，而是把原则性和灵活性结合起来。",
+    angles: ["因地制宜、分类施策", "在试错中总结规律", "战略定力与策略灵活相统一"],
+    sentence: "面对发展中的新问题，既要保持方向不变、目标不移，也要根据形势变化及时调整方法，在实践中找答案、在试验中积累经验。",
+    use: "适合“基层治理、乡村振兴、改革创新、因地制宜、风险应对”类申论主题。"
+  },
+  p4: {
+    topic: "团结协作与共同抗压",
+    view: "面对重大风险挑战，单一力量难以完成复杂任务，必须把共同目标转化为组织协同、社会动员和群众参与。",
+    angles: ["统一战线和社会协同", "统筹发展与安全", "把群众力量组织起来"],
+    sentence: "越是任务艰巨、风险交织，越不能各自为战，而要在共同目标下凝聚共识、整合资源、协同发力，形成共克时艰的合力。",
+    use: "适合“抗风险、基层治理、社会动员、公共安全、团结合作”类申论主题。"
+  },
+  p5: {
+    topic: "人民立场与群众基础",
+    view: "事业成败归根到底取决于是否站稳人民立场、解决群众实际问题；政策只有转化为群众可感可及的获得感，才能形成持久动力。",
+    angles: ["人民至上", "政策落地和群众获得感", "组织能力与执行能力"],
+    sentence: "衡量一项工作是否真正有效，不能只看文件写得是否漂亮、指标增长是否迅速，更要看群众是否有获得感、幸福感和安全感。",
+    use: "适合“为民服务、基层治理、公共服务、共同富裕、民生保障”类申论主题。"
+  },
+  p6: {
+    topic: "理论学习与政策执行",
+    view: "理论学习的价值不在于堆积概念，而在于形成理解政策、分析问题和推动工作的能力；要把理论框架转化为解决现实问题的方法。",
+    angles: ["系统学习和知行合一", "政策理解能力", "理论联系实际"],
+    sentence: "理论学习不是把材料背得越多越好，而是要把零散表述串成系统框架，把政策要求转化为分析问题、解决问题和推动落实的能力。",
+    use: "适合“学习型政府、干部能力建设、政策执行、理论联系实际、青年成长”类申论主题。"
+  },
+  p7: {
+    topic: "解放和发展生产力、实现共同富裕",
+    view: "发展的最终目的不是单纯追求速度和规模，而是不断解放和发展生产力、改善人民生活、推动共同富裕。",
+    angles: ["发展是解决问题的基础", "发展成果由人民共享", "效率与公平相统一"],
+    sentence: "高质量发展既要做大“蛋糕”，不断增强发展动力和综合实力，也要分好“蛋糕”，让发展成果更加公平地惠及全体人民。",
+    use: "适合“高质量发展、共同富裕、就业增收、区域协调、民营经济”类申论主题。"
+  },
+  p8: {
+    topic: "以人民为中心的高质量发展",
+    view: "科学发展不是单纯追求经济增长，而是以人民为中心，统筹经济、社会、生态和长远发展，形成全面协调可持续的发展格局。",
+    angles: ["人民立场", "全面协调可持续", "统筹兼顾和系统治理"],
+    sentence: "发展不能以牺牲生态环境、透支长远利益为代价，必须把人民需要、发展规律和资源环境承载能力统一起来。",
+    use: "适合“高质量发展、生态文明、乡村振兴、区域协调、系统治理、绿色发展”类申论主题。"
+  }
+}
+
 const nav = document.querySelector("#lessonNav")
 const title = document.querySelector("#lessonTitle")
 const content = document.querySelector("#lessonContent")
@@ -505,11 +619,30 @@ function renderImages(item) {
 function renderDetailedNotes(item) {
   const notes = detailedNotes[item.id]
   if (!notes?.length) return ""
-  return `<section class="detail-notes"><div class="detail-heading"><span class="eyebrow">课堂展开</span><h3>详细讲解笔记</h3><p>把PPT标题、老师讲解顺序和公考考点合并成可复习的内容块。</p></div>${notes.map((note, index) => `
+  const images = pptInline[item.id] || []
+  const voice = spokenHighlights[item.id] || []
+  return `<section class="detail-notes"><div class="detail-heading"><span class="eyebrow">课堂展开</span><h3>详细讲解笔记</h3><p>把PPT标题、老师讲解顺序、语音内容和公考考点合并成可复习的内容块。</p></div>${notes.map((note, index) => `
     <article class="detail-note">
       <div class="detail-note-number">${String(index + 1).padStart(2, "0")}</div>
-      <div><h4>${note.heading}</h4><ul>${note.bullets.map(bullet => `<li>${bullet}</li>`).join("")}</ul></div>
+      <div>
+        <h4>${note.heading}</h4>
+        ${images[index] ? `<button class="inline-ppt" data-src="${assetRoot}${images[index][0]}" data-caption="${images[index][1]}"><img src="${assetRoot}${images[index][0]}" alt="${images[index][1]}" /><span>点击放大 · ${images[index][1]}</span></button>` : ""}
+        <ul>${note.bullets.map(bullet => `<li>${bullet}</li>`).join("")}</ul>
+        ${voice[index] ? `<div class="voice-note"><strong>老师口述提炼</strong><span>${voice[index]}</span></div>` : ""}
+      </div>
     </article>`).join("")}</section>`
+}
+
+function renderEssayNotes(item) {
+  const essay = essayNotes[item.id]
+  if (!essay) return ""
+  return `<section class="essay-section">
+    <div class="essay-heading"><span class="eyebrow">申论专用</span><h3>把党史和中特转化为申论表达</h3><p>以下不是生搬硬套的万能句，而是可以结合题目材料改写的观点、分析角度和论证方向。</p></div>
+    <div class="essay-grid">
+      <article class="essay-main"><span class="essay-label">适用主题</span><h4>${essay.topic}</h4><p>${essay.view}</p><blockquote>${essay.sentence}</blockquote></article>
+      <article class="essay-side"><span class="essay-label">可展开角度</span><ul>${essay.angles.map(angle => `<li>${angle}</li>`).join("")}</ul><div class="essay-use"><strong>适用场景</strong><span>${essay.use}</span></div></article>
+    </div>
+  </section>`
 }
 
 function render() {
@@ -535,6 +668,7 @@ function render() {
       ${flashes}
     </div>
     ${renderDetailedNotes(item)}
+    ${renderEssayNotes(item)}
     ${renderImages(item)}
   `
   document.querySelector("#markButton").classList.toggle("done", completed.has(item.id))
@@ -544,6 +678,10 @@ function render() {
   document.querySelectorAll(".ppt-image").forEach(figure => figure.addEventListener("click", () => {
     const images = [...document.querySelectorAll(".ppt-image img")]
     openLightbox(images, Number(figure.dataset.imageIndex))
+  }))
+  document.querySelectorAll(".inline-ppt").forEach(button => button.addEventListener("click", () => {
+    const image = button.querySelector("img")
+    openLightbox([{ currentSrc: image.currentSrc, src: image.src, alt: button.dataset.caption }], 0)
   }))
 }
 
