@@ -166,6 +166,17 @@ h1 { margin: 3px 0 0; font: 800 24px/1.25 "Noto Serif SC", "Songti SC", serif; }
 .essay-entry-columns li { margin: 4px 0; color: #755f3e; font-size: 11px; line-height: 1.6; }
 .essay-entry-columns blockquote { margin: 7px 0 0; padding: 10px 12px; color: #6d4f22; background: #f8edda; border-left: 3px solid var(--gold); font: 700 11px/1.7 "Noto Serif SC", serif; }
 .essay-entry > small { display: block; margin-top: 12px; padding-top: 9px; border-top: 1px solid #efdfc1; color: #8c7854; font-size: 10px; line-height: 1.6; }
+.essay-exercise { margin-top: 13px; border-top: 1px dashed #ddc89f; padding-top: 11px; }
+.essay-exercise summary { color: #9b712b; font-size: 11px; font-weight: 800; cursor: pointer; }
+.exercise-question { margin-top: 10px; padding: 11px 12px; background: #fff5e3; border-left: 3px solid var(--gold); }
+.exercise-question strong, .exercise-keywords strong, .exercise-columns > div > strong { display: block; color: #9b712b; font-size: 10px; }
+.exercise-question p { margin: 5px 0 0; color: #755f3e; font-size: 11px; line-height: 1.7; }
+.exercise-keywords { display: flex; align-items: baseline; gap: 10px; margin-top: 9px; }
+.exercise-keywords span { color: #755f3e; font-size: 11px; }
+.exercise-columns { display: grid; grid-template-columns: .9fr 1.1fr; gap: 12px; margin-top: 11px; }
+.exercise-columns ol { margin: 7px 0 0; padding-left: 19px; }
+.exercise-columns li { margin: 4px 0; color: #755f3e; font-size: 11px; line-height: 1.6; }
+.exercise-columns blockquote { margin: 7px 0 0; padding: 11px 12px; color: #6d4f22; background: #f8edda; border-left: 3px solid var(--gold); font: 700 11px/1.75 "Noto Serif SC", serif; }
 .framework-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; }
 .framework-list div { display: grid; grid-template-columns: 70px 1fr; gap: 8px; padding: 11px 12px; background: #f7f2e7; border-radius: 6px; }
 .framework-list strong { color: #a4772d; font-size: 10px; }
@@ -218,6 +229,9 @@ body.dark .essay-entry-top b, body.dark .essay-entry > p, body.dark .essay-entry
 body.dark .essay-entry-columns blockquote, body.dark .framework-list div { background: #433620; }
 body.dark .essay-entry > small, body.dark .framework-list span { color: #cdb986; }
 body.dark .expansion-grid div { background: #1f3127; }
+body.dark .essay-exercise { border-color: #5a4b30; }
+body.dark .exercise-question, body.dark .exercise-columns blockquote { background: #433620; }
+body.dark .exercise-question p, body.dark .exercise-keywords span, body.dark .exercise-columns li, body.dark .exercise-columns blockquote { color: #dec58e; }
 
 @media (max-width: 900px) {
   .app { padding: 20px 16px 50px; }
@@ -248,6 +262,9 @@ body.dark .expansion-grid div { background: #1f3127; }
   .essay-entry-top { display: block; }
   .essay-entry-top b { display: block; margin-top: 5px; }
   .essay-entry-columns, .framework-list { grid-template-columns: 1fr; }
+  .exercise-columns { grid-template-columns: 1fr; }
+  .exercise-keywords { display: block; }
+  .exercise-keywords span { display: block; margin-top: 4px; }
   .inline-ppt { grid-template-columns: 1fr; }
   .inline-ppt img { width: 100%; }
   .voice-note { grid-template-columns: 1fr; gap: 4px; }
