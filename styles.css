@@ -214,6 +214,29 @@ h1 { margin: 3px 0 0; font: 800 24px/1.25 "Noto Serif SC", "Songti SC", serif; }
 .essay-question-detail ol { margin: 7px 0; padding-left: 19px; }
 .essay-question-detail li { margin: 4px 0; color: #755f3e; font-size: 11px; line-height: 1.6; }
 .essay-question-detail blockquote { margin: 8px 0 0; padding: 10px 11px; color: #6d4f22; background: #f8edda; border-left: 3px solid var(--gold); font: 700 11px/1.75 "Noto Serif SC", serif; }
+.essay-framework-rich { padding: 13px; }
+.essay-framework-step { display: grid; grid-template-columns: 25px 1fr; gap: 8px; margin-top: 11px; padding-top: 10px; border-top: 1px solid #efdfc1; }
+.essay-framework-step:first-of-type { margin-top: 8px; padding-top: 0; border-top: 0; }
+.essay-framework-step > b { color: var(--red); font: 800 15px "Noto Serif SC", serif; }
+.essay-framework-step strong { display: block; color: #8b672d; font-size: 11px; }
+.essay-framework-step p { margin: 4px 0 0; color: #755f3e; font-size: 11px; line-height: 1.75; }
+.essay-materials { margin-top: 10px; padding: 11px 12px; background: #f3f8f4; border-left: 3px solid var(--green-2); }
+.essay-materials strong { display: block; color: var(--green-2); font-size: 10px; }
+.essay-materials p { margin: 5px 0 0; color: #58675f; font-size: 11px; line-height: 1.7; }
+.practice-framework-rich { padding: 15px 16px; }
+.practice-framework-rich .practice-framework-step { margin-top: 11px; padding-top: 10px; border-top: 1px solid #efdfc1; }
+.practice-framework-rich .practice-framework-step:first-of-type { margin-top: 8px; padding-top: 0; border-top: 0; }
+.practice-framework-step { display: grid; grid-template-columns: 25px 1fr; gap: 8px; }
+.practice-framework-step > b { color: var(--red); font: 800 15px "Noto Serif SC", serif; }
+.practice-framework-step strong { display: block; color: #8b672d; font-size: 11px; }
+.practice-framework-step p { margin: 4px 0 0; color: #755f3e; font-size: 11px; line-height: 1.75; }
+.practice-materials { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #ddc89f; }
+.practice-materials strong { display: block; color: #8b672d; font-size: 10px; }
+.practice-materials span { display: block; margin-top: 5px; color: #755f3e; font-size: 11px; line-height: 1.7; }
+.practice-model-long blockquote { font-size: 12px; line-height: 1.9; font-weight: 600; }
+.essay-model-answer { margin-top: 11px; }
+.essay-model-answer > strong { display: block; color: #9b712b; font-size: 10px; }
+.essay-model-answer blockquote { margin: 7px 0 0; padding: 12px; color: #6d4f22; background: #f8edda; border-left: 3px solid var(--gold); font: 600 11px/1.85 "Noto Serif SC", serif; }
 .essay-method-section { background: #f3f8f4; }
 .essay-method-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
 .essay-method-grid article { padding: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 7px; }
@@ -305,6 +328,11 @@ body.dark .practice-framework-preview span { color: #cdb986; }
 body.dark .essay-question-card { background: #1f2b24; border-color: #5a4b30; }
 body.dark .essay-question-card-top b, body.dark .essay-question-hint { background: #433620; }
 body.dark .essay-question-detail blockquote { background: #433620; }
+body.dark .essay-framework-step { border-color: #5a4b30; }
+body.dark .essay-framework-step p, body.dark .essay-materials p, body.dark .practice-framework-step p, body.dark .practice-materials span, body.dark .essay-model-answer blockquote { color: #dec58e; }
+body.dark .essay-materials { background: #1f3127; border-color: #a5d4b8; }
+body.dark .practice-materials { border-color: #5a4b30; }
+body.dark .essay-model-answer blockquote { background: #433620; }
 body.dark .essay-method-section { background: #1b2d24; }
 body.dark .essay-method-grid article, body.dark .essay-entry { background: #1f2b24; border-color: #5a4b30; }
 body.dark .essay-entry-top b, body.dark .essay-entry > p, body.dark .essay-entry-columns li, body.dark .essay-entry-columns blockquote { color: #dec58e; }

@@ -790,20 +790,22 @@ function renderEssayHub() {
 
 function renderEssayQuestionBank() {
   return `<section class="essay-section essay-question-bank">
-    <div class="essay-heading"><span class="eyebrow">申论题库</span><h3>申论题目与标准答案框架</h3><p>先看题目要求，再看答案骨架。每道题都告诉你中心论点、分论点和结尾应该怎么安排。</p></div>
+    <div class="essay-heading"><span class="eyebrow">申论题库</span><h3>申论题目与详细答案框架</h3><p>先看题目要求，再看每一段具体写什么、为什么这样写、可以调用哪些党史和中特素材。</p></div>
     <div class="essay-question-list">${Object.keys(essayExercises).map((id, index) => {
       const item = essayExercises[id]
       const guide = essayPracticeGuides[id]
+      const detail = essayAnswerDetails[id]
       return `<article class="essay-question-card" id="essay-question-${id}">
         <div class="essay-question-card-top"><span>题目 ${String(index + 1).padStart(2, "0")}</span><b>${guide.type}</b></div>
         <h4>${essayPracticeLabels[id]}</h4>
         <strong class="essay-question-label">题目</strong><p class="essay-question-text">${item.question}</p>
         <div class="essay-question-hint"><strong>审题抓手</strong><span>${item.keywords}</span></div>
-        <div class="essay-framework"><strong>标准答案框架</strong><ol>${item.outline.map(step => `<li>${step}</li>`).join("")}</ol></div>
-        <details class="essay-question-detail"><summary>查看为什么这样组织答案</summary>
+        <div class="essay-framework essay-framework-rich"><strong>详细答案框架</strong>${detail.framework.map((part, partIndex) => `<div class="essay-framework-step"><b>${String(partIndex + 1).padStart(2, "0")}</b><div><strong>${part.title}</strong><p>${part.content}</p></div></div>`).join("")}</div>
+        <div class="essay-materials"><strong>可用党史 / 中特素材</strong><p>${detail.materials}</p></div>
+        <details class="essay-question-detail"><summary>查看题型判断、解题逻辑和完整示范答案</summary>
           <p><strong>题型判断：</strong>${guide.judgment}</p>
           <ol>${guide.route.map(step => `<li>${step}</li>`).join("")}</ol>
-          <blockquote>${item.model}</blockquote>
+          <div class="essay-model-answer"><strong>完整示范答案</strong><blockquote>${detail.model.replace(/\n/g, "<br />")}</blockquote></div>
         </details>
       </article>`
     }).join("")}</div>
@@ -812,6 +814,7 @@ function renderEssayQuestionBank() {
 function renderPracticeCard() {
   const item = essayExercises[practiceId] || essayExercises.p1
   const guide = essayPracticeGuides[practiceId] || essayPracticeGuides.p1
+  const detail = essayAnswerDetails[practiceId] || essayAnswerDetails.p1
   const topic = essayNotes[practiceId]?.topic || "党史中特综合练习"
   const options = Object.keys(essayExercises).map(id => `<option value="${id}" ${id === practiceId ? "selected" : ""}>${essayPracticeLabels[id]}</option>`).join("")
   return `<section class="practice-card">
@@ -824,13 +827,13 @@ function renderPracticeCard() {
     </div>
     <div class="practice-meta"><span>${guide.type}</span><span>${topic}</span></div>
     <div class="practice-question"><span>原创模拟题</span><p>${item.question}</p></div>
-    <div class="practice-framework-preview"><div><strong>本题答案框架</strong><span>先按骨架列提纲，再展开成完整答案</span></div><ol>${item.outline.map(step => `<li>${step}</li>`).join("")}</ol></div>
+    <div class="practice-framework-preview practice-framework-rich"><div><strong>本题详细答案框架</strong><span>先按每一段的任务列提纲，再展开成完整答案</span></div>${detail.framework.map((part, index) => `<div class="practice-framework-step"><b>${String(index + 1).padStart(2, "0")}</b><div><strong>${part.title}</strong><p>${part.content}</p></div></div>`).join("")}<div class="practice-materials"><strong>可用党史 / 中特素材</strong><span>${detail.materials}</span></div></div>
     <div class="practice-input">
       <label for="practiceInput">我的作答</label>
       <textarea id="practiceInput" rows="8" placeholder="先写中心论点、分论点或完整答案……"></textarea>
       <div class="practice-input-footer"><span id="practiceSaveStatus">答案会自动保存在本机</span><button class="practice-clear" id="practiceClear">清空作答</button></div>
     </div>
-    <div class="practice-actions"><span>建议流程：先用 5 分钟审题列纲，再用 10—20 分钟展开。</span><button class="primary-button" id="practiceReveal">查看如何解答</button></div>
+    <div class="practice-actions"><span>建议流程：先用 5 分钟审题列纲，再用 10—20 分钟展开。</span><button class="primary-button" id="practiceReveal">查看完整解题</button></div>
     <div class="practice-answer" id="practiceAnswer" hidden>
       <div class="practice-answer-grid">
         <div><strong>题型判断</strong><p>${guide.judgment}</p></div>
@@ -840,8 +843,8 @@ function renderPracticeCard() {
         <div><strong>题干拆解</strong><ul>${guide.parse.map(item => `<li>${item}</li>`).join("")}</ul></div>
         <div><strong>如何一步步解答</strong><ol>${guide.route.map(item => `<li>${item}</li>`).join("")}</ol></div>
       </div>
-      <div class="practice-outline"><strong>参考提纲</strong><ol>${item.outline.map(step => `<li>${step}</li>`).join("")}</ol></div>
-      <div class="practice-model"><strong>示范表达</strong><blockquote>${item.model}</blockquote></div>
+      <div class="practice-outline"><strong>考场简版提纲</strong><ol>${item.outline.map(step => `<li>${step}</li>`).join("")}</ol></div>
+      <div class="practice-model practice-model-long"><strong>完整示范答案</strong><blockquote>${detail.model.replace(/\n/g, "<br />")}</blockquote></div>
       <div class="practice-checklist-grid">
         <div><strong>答案自查</strong><ul>${guide.checklist.map(item => `<li>${item}</li>`).join("")}</ul></div>
         <div class="practice-pitfall"><strong>常见失分点</strong><p>${guide.pitfalls}</p></div>
