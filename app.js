@@ -756,6 +756,7 @@ function renderEssayHub() {
       <div class="essay-heading"><span class="eyebrow">怎么扩展</span><h3>从知识点到申论答案</h3><p>每个主题都按同一套流程处理，方便持续增加新课程、新材料和真题。</p></div>
       <div class="essay-method-grid">${essayHub.method.map((item, index) => `<article><b>${String(index + 1).padStart(2, "0")}</b><h4>${item[0]}</h4><p>${item[1]}</p></article>`).join("")}</div>
     </section>
+    ${renderEssayQuestionBank()}
     <section class="essay-section">
       <div class="essay-heading"><span class="eyebrow">主题素材库</span><h3>党史与中特可用主题</h3><p>点击左侧主题可定位，也可以在下面直接浏览全部素材。</p></div>
       <div class="essay-entry-list">${entries.map(item => {
@@ -787,6 +788,27 @@ function renderEssayHub() {
   `
 }
 
+function renderEssayQuestionBank() {
+  return `<section class="essay-section essay-question-bank">
+    <div class="essay-heading"><span class="eyebrow">申论题库</span><h3>申论题目与标准答案框架</h3><p>先看题目要求，再看答案骨架。每道题都告诉你中心论点、分论点和结尾应该怎么安排。</p></div>
+    <div class="essay-question-list">${Object.keys(essayExercises).map((id, index) => {
+      const item = essayExercises[id]
+      const guide = essayPracticeGuides[id]
+      return `<article class="essay-question-card" id="essay-question-${id}">
+        <div class="essay-question-card-top"><span>题目 ${String(index + 1).padStart(2, "0")}</span><b>${guide.type}</b></div>
+        <h4>${essayPracticeLabels[id]}</h4>
+        <strong class="essay-question-label">题目</strong><p class="essay-question-text">${item.question}</p>
+        <div class="essay-question-hint"><strong>审题抓手</strong><span>${item.keywords}</span></div>
+        <div class="essay-framework"><strong>标准答案框架</strong><ol>${item.outline.map(step => `<li>${step}</li>`).join("")}</ol></div>
+        <details class="essay-question-detail"><summary>查看为什么这样组织答案</summary>
+          <p><strong>题型判断：</strong>${guide.judgment}</p>
+          <ol>${guide.route.map(step => `<li>${step}</li>`).join("")}</ol>
+          <blockquote>${item.model}</blockquote>
+        </details>
+      </article>`
+    }).join("")}</div>
+  </section>`
+}
 function renderPracticeCard() {
   const item = essayExercises[practiceId] || essayExercises.p1
   const guide = essayPracticeGuides[practiceId] || essayPracticeGuides.p1
@@ -802,6 +824,7 @@ function renderPracticeCard() {
     </div>
     <div class="practice-meta"><span>${guide.type}</span><span>${topic}</span></div>
     <div class="practice-question"><span>原创模拟题</span><p>${item.question}</p></div>
+    <div class="practice-framework-preview"><div><strong>本题答案框架</strong><span>先按骨架列提纲，再展开成完整答案</span></div><ol>${item.outline.map(step => `<li>${step}</li>`).join("")}</ol></div>
     <div class="practice-input">
       <label for="practiceInput">我的作答</label>
       <textarea id="practiceInput" rows="8" placeholder="先写中心论点、分论点或完整答案……"></textarea>
