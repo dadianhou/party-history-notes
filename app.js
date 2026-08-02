@@ -625,6 +625,8 @@ const lightboxCaption = document.querySelector("#lightboxCaption")
 const zoomText = document.querySelector("#zoomText")
 let currentId = localStorage.getItem("party-note-current") || "p1"
 let filter = "all"
+let practiceId = localStorage.getItem("party-note-practice") || "p1"
+let practiceAnswers = JSON.parse(localStorage.getItem("party-note-practice-answers") || "{}")
 let lightboxItems = []
 let lightboxIndex = 0
 let zoom = 1
@@ -743,6 +745,7 @@ function renderEssayHub() {
     return !query || `${essay.topic} ${essay.view} ${essay.angles.join(" ")} ${essay.use}`.toLowerCase().includes(query)
   })
   return `
+    ${renderPracticeCard()}
     <section class="essay-hero">
       <span class="eyebrow">Essay Toolkit</span>
       <h3>${essayHub.title}</h3>
@@ -784,6 +787,45 @@ function renderEssayHub() {
   `
 }
 
+function renderPracticeCard() {
+  const item = essayExercises[practiceId] || essayExercises.p1
+  const guide = essayPracticeGuides[practiceId] || essayPracticeGuides.p1
+  const topic = essayNotes[practiceId]?.topic || "党史中特综合练习"
+  const options = Object.keys(essayExercises).map(id => `<option value="${id}" ${id === practiceId ? "selected" : ""}>${essayPracticeLabels[id]}</option>`).join("")
+  return `<section class="practice-card">
+    <div class="practice-top">
+      <div><span class="eyebrow">申论练习台</span><h3>自己先答，再看如何解答</h3><p>可以选择题目、输入答案；答案会自动保存在当前浏览器。</p></div>
+      <div class="practice-top-actions">
+        <div><label class="practice-select-label" for="practiceSelect">选择练习题</label><select id="practiceSelect" class="practice-select">${options}</select></div>
+        <button class="practice-change" id="practiceChange">换一道题</button>
+      </div>
+    </div>
+    <div class="practice-meta"><span>${guide.type}</span><span>${topic}</span></div>
+    <div class="practice-question"><span>原创模拟题</span><p>${item.question}</p></div>
+    <div class="practice-input">
+      <label for="practiceInput">我的作答</label>
+      <textarea id="practiceInput" rows="8" placeholder="先写中心论点、分论点或完整答案……"></textarea>
+      <div class="practice-input-footer"><span id="practiceSaveStatus">答案会自动保存在本机</span><button class="practice-clear" id="practiceClear">清空作答</button></div>
+    </div>
+    <div class="practice-actions"><span>建议流程：先用 5 分钟审题列纲，再用 10—20 分钟展开。</span><button class="primary-button" id="practiceReveal">查看如何解答</button></div>
+    <div class="practice-answer" id="practiceAnswer" hidden>
+      <div class="practice-answer-grid">
+        <div><strong>题型判断</strong><p>${guide.judgment}</p></div>
+        <div><strong>这道题要完成什么</strong><p>${guide.task}</p></div>
+      </div>
+      <div class="practice-guide-grid">
+        <div><strong>题干拆解</strong><ul>${guide.parse.map(item => `<li>${item}</li>`).join("")}</ul></div>
+        <div><strong>如何一步步解答</strong><ol>${guide.route.map(item => `<li>${item}</li>`).join("")}</ol></div>
+      </div>
+      <div class="practice-outline"><strong>参考提纲</strong><ol>${item.outline.map(step => `<li>${step}</li>`).join("")}</ol></div>
+      <div class="practice-model"><strong>示范表达</strong><blockquote>${item.model}</blockquote></div>
+      <div class="practice-checklist-grid">
+        <div><strong>答案自查</strong><ul>${guide.checklist.map(item => `<li>${item}</li>`).join("")}</ul></div>
+        <div class="practice-pitfall"><strong>常见失分点</strong><p>${guide.pitfalls}</p></div>
+      </div>
+    </div>
+  </section>`
+}
 function render() {
   const item = lessons.find(lesson => lesson.id === currentId) || lessons[0]
   currentId = item.id
@@ -793,6 +835,38 @@ function render() {
   document.querySelector("#copyLinkButton").style.display = isEssay ? "none" : ""
   if (isEssay) {
     content.innerHTML = renderEssayHub()
+    const practiceSelect = document.querySelector("#practiceSelect")
+    const practiceInput = document.querySelector("#practiceInput")
+    const practiceStatus = document.querySelector("#practiceSaveStatus")
+    practiceInput.value = practiceAnswers[practiceId] || ""
+    practiceInput.addEventListener("input", event => {
+      practiceAnswers[practiceId] = event.currentTarget.value
+      localStorage.setItem("party-note-practice-answers", JSON.stringify(practiceAnswers))
+      practiceStatus.textContent = "已自动保存到本机"
+    })
+    practiceSelect.addEventListener("change", event => {
+      practiceId = event.currentTarget.value
+      localStorage.setItem("party-note-practice", practiceId)
+      render()
+    })
+    document.querySelector("#practiceChange")?.addEventListener("click", () => {
+      const ids = Object.keys(essayExercises).filter(id => id !== practiceId)
+      practiceId = ids[Math.floor(Math.random() * ids.length)]
+      localStorage.setItem("party-note-practice", practiceId)
+      render()
+    })
+    document.querySelector("#practiceClear")?.addEventListener("click", () => {
+      practiceAnswers[practiceId] = ""
+      localStorage.setItem("party-note-practice-answers", JSON.stringify(practiceAnswers))
+      practiceInput.value = ""
+      practiceStatus.textContent = "已清空本题作答"
+      practiceInput.focus()
+    })
+    document.querySelector("#practiceReveal")?.addEventListener("click", event => {
+      const answer = document.querySelector("#practiceAnswer")
+      answer.hidden = !answer.hidden
+      event.currentTarget.textContent = answer.hidden ? "查看如何解答" : "收起解答"
+    })
     renderNav()
     updateProgress()
     return
