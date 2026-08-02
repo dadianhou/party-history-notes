@@ -648,27 +648,10 @@ function updateProgress() {
 
 function renderNav() {
   const query = search.value.trim().toLowerCase()
-  if (filter === "essay") {
-    nav.innerHTML = lessons.filter(item => essayNotes[item.id]).filter(item => {
-      const essay = essayNotes[item.id]
-      return !query || `${essay.topic} ${essay.view} ${essay.angles.join(" ")} ${essay.use}`.toLowerCase().includes(query)
-    }).map((item, index) => `
-      <button class="lesson-link essay-link ${item.id === currentId ? "active" : ""}" data-id="${item.id}">
-        <span class="lesson-index">申${String(index + 1).padStart(2, "0")}</span>
-        <span><strong>${essayNotes[item.id].topic}</strong><small>${item.type}素材 · 点击查看</small></span>
-      </button>
-    `).join("") || `<div class="empty">没有匹配申论主题</div>`
-    nav.querySelectorAll(".lesson-link").forEach(button => button.addEventListener("click", () => {
-      currentId = button.dataset.id
-      render()
-      document.querySelector(`[data-essay-id="${currentId}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" })
-    }))
-    return
-  }
   nav.innerHTML = lessons
     .filter(item => filter === "all" || item.type === filter)
     .filter(item => !query || `${item.title} ${item.subtitle} ${item.summary} ${item.table.flat().join(" ")}`.toLowerCase().includes(query))
-    .map((item, index) => `
+    .map(item => `
       <button class="lesson-link ${item.id === currentId ? "active" : ""}" data-id="${item.id}">
         <span class="lesson-index">${String(lessons.indexOf(item) + 1).padStart(2, "0")}</span>
         <span><strong>${item.title.replace(" · ", "<br />")}</strong><small>${item.duration} · ${completed.has(item.id) ? "已学" : item.type}</small></span>
@@ -681,7 +664,6 @@ function renderNav() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }))
 }
-
 function renderTimeline(items) {
   if (!items?.length) return ""
   return `<div class="timeline">${items.map(item => `
@@ -855,48 +837,9 @@ function renderPracticeCard() {
 function render() {
   const item = lessons.find(lesson => lesson.id === currentId) || lessons[0]
   currentId = item.id
-  const isEssay = filter === "essay"
-  title.textContent = isEssay ? "申论专区 · 主题素材与答题框架" : `${item.title} · ${item.duration}`
-  document.querySelector("#markButton").style.display = isEssay ? "none" : ""
-  document.querySelector("#copyLinkButton").style.display = isEssay ? "none" : ""
-  if (isEssay) {
-    content.innerHTML = renderEssayHub()
-    const practiceSelect = document.querySelector("#practiceSelect")
-    const practiceInput = document.querySelector("#practiceInput")
-    const practiceStatus = document.querySelector("#practiceSaveStatus")
-    practiceInput.value = practiceAnswers[practiceId] || ""
-    practiceInput.addEventListener("input", event => {
-      practiceAnswers[practiceId] = event.currentTarget.value
-      localStorage.setItem("party-note-practice-answers", JSON.stringify(practiceAnswers))
-      practiceStatus.textContent = "已自动保存到本机"
-    })
-    practiceSelect.addEventListener("change", event => {
-      practiceId = event.currentTarget.value
-      localStorage.setItem("party-note-practice", practiceId)
-      render()
-    })
-    document.querySelector("#practiceChange")?.addEventListener("click", () => {
-      const ids = Object.keys(essayExercises).filter(id => id !== practiceId)
-      practiceId = ids[Math.floor(Math.random() * ids.length)]
-      localStorage.setItem("party-note-practice", practiceId)
-      render()
-    })
-    document.querySelector("#practiceClear")?.addEventListener("click", () => {
-      practiceAnswers[practiceId] = ""
-      localStorage.setItem("party-note-practice-answers", JSON.stringify(practiceAnswers))
-      practiceInput.value = ""
-      practiceStatus.textContent = "已清空本题作答"
-      practiceInput.focus()
-    })
-    document.querySelector("#practiceReveal")?.addEventListener("click", event => {
-      const answer = document.querySelector("#practiceAnswer")
-      answer.hidden = !answer.hidden
-      event.currentTarget.textContent = answer.hidden ? "查看如何解答" : "收起解答"
-    })
-    renderNav()
-    updateProgress()
-    return
-  }
+  title.textContent = `${item.title} · ${item.duration}`
+  document.querySelector("#markButton").style.display = ""
+  document.querySelector("#copyLinkButton").style.display = ""
   const timeline = item.timeline ? `<div class="card"><h3>时间线</h3>${renderTimeline(item.timeline)}</div>` : ""
   const teacher = `<div class="card"><h3>老师强调</h3><blockquote class="quote">${item.teacher}</blockquote></div>`
   const mistakes = item.mistakes?.length ? `<div class="card"><h3>易错辨析</h3><div class="mistake-list">${item.mistakes.map(row => `<div class="mistake"><b>${row[0]}</b><span>${row[1]}</span></div>`).join("")}</div></div>` : ""
@@ -916,7 +859,6 @@ function render() {
       ${flashes}
     </div>
     ${renderDetailedNotes(item)}
-    ${renderEssayNotes(item)}
     ${renderImages(item)}
   `
   document.querySelector("#markButton").classList.toggle("done", completed.has(item.id))
