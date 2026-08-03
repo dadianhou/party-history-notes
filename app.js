@@ -149,6 +149,17 @@ const lessons = [
   }
 ]
 
+const transcriptFiles = {
+  p1: "transcripts/p1.txt",
+  p2: "transcripts/p2.txt",
+  p3: "transcripts/p3.txt",
+  p4: "transcripts/p4.txt",
+  p5: "transcripts/p5.txt",
+  p6: "transcripts/p6.txt",
+  p7: "transcripts/p7.txt",
+  p8: "transcripts/p8.txt"
+}
+
 const detailedNotes = {
   p1: [
     {
@@ -708,6 +719,35 @@ function renderDetailedNotes(item) {
     </article>`).join("")}</section>`
 }
 
+function renderTranscriptPanel(item) {
+  const file = transcriptFiles[item.id]
+  if (!file) return ""
+  return `<section class="transcript-panel">
+    <div class="transcript-heading"><div><span class="eyebrow">课堂原话</span><h3>本节视频逐段转写</h3></div><p>原始转写保留老师讲课顺序和时间戳；上方“课堂展开”已经把口语内容校正成复习笔记。</p></div>
+    <details class="transcript-details" data-transcript="${file}">
+      <summary>展开本节老师原话</summary>
+      <div class="transcript-status">点击展开后加载本节完整转写</div>
+      <pre class="transcript-text"></pre>
+    </details>
+  </section>`
+}
+
+async function loadTranscript(details) {
+  if (details.dataset.loaded === "true") return
+  const status = details.querySelector(".transcript-status")
+  const text = details.querySelector(".transcript-text")
+  try {
+    const response = await fetch(details.dataset.transcript)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const value = await response.text()
+    text.textContent = value
+    details.dataset.loaded = "true"
+    status.textContent = `已加载 ${value.split(/\r?\n/).filter(Boolean).length} 段课堂转写`
+  } catch (error) {
+    status.textContent = "转写暂时加载失败，请刷新页面后重试"
+  }
+}
+
 function renderEssayNotes(item) {
   const essay = essayNotes[item.id]
   if (!essay) return ""
@@ -859,6 +899,7 @@ function render() {
       ${flashes}
     </div>
     ${renderDetailedNotes(item)}
+    ${renderTranscriptPanel(item)}
     ${renderImages(item)}
   `
   document.querySelector("#markButton").classList.toggle("done", completed.has(item.id))
@@ -872,6 +913,9 @@ function render() {
   document.querySelectorAll(".inline-ppt").forEach(button => button.addEventListener("click", () => {
     const image = button.querySelector("img")
     openLightbox([{ currentSrc: image.currentSrc, src: image.src, alt: button.dataset.caption }], 0)
+  }))
+  document.querySelectorAll(".transcript-details").forEach(details => details.addEventListener("toggle", () => {
+    if (details.open) loadTranscript(details)
   }))
 }
 

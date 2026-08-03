@@ -127,6 +127,14 @@ h1 { margin: 3px 0 0; font: 800 24px/1.25 "Noto Serif SC", "Songti SC", serif; }
 .voice-note { display: grid; grid-template-columns: 92px 1fr; gap: 8px; margin-top: 11px; padding: 10px 12px; background: #f3f0e8; border-left: 3px solid var(--gold); }
 .voice-note strong { color: #8b672d; font-size: 10px; }
 .voice-note span { color: #756a54; font-size: 11px; line-height: 1.7; }
+.transcript-panel { margin-top: 16px; padding: 22px; background: #f5f8f5; border: 1px solid var(--line); border-radius: 9px; }
+.transcript-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 14px; }
+.transcript-heading h3 { margin: 4px 0 0; color: var(--green); font: 800 20px "Noto Serif SC", serif; }
+.transcript-heading p { max-width: 430px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.65; text-align: right; }
+.transcript-details { border-top: 1px dashed #cbdacf; padding-top: 12px; }
+.transcript-details summary { color: var(--green-2); font-size: 11px; font-weight: 800; cursor: pointer; }
+.transcript-status { margin-top: 9px; color: var(--muted); font-size: 10px; }
+.transcript-text { max-height: 560px; margin: 10px 0 0; padding: 14px; overflow: auto; white-space: pre-wrap; color: #58675f; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; font: 12px/1.8 "Microsoft YaHei", sans-serif; }
 .essay-section { margin-top: 16px; padding: 22px; background: #fffaf1; border: 1px solid #ead9b8; border-radius: 9px; }
 .essay-heading { display: flex; justify-content: space-between; align-items: end; gap: 15px; margin-bottom: 15px; }
 .essay-heading h3 { margin: 4px 0 0; color: #735425; font: 800 20px "Noto Serif SC", serif; }
@@ -307,6 +315,10 @@ body.dark .detail-note li { color: #bfcec4; }
 body.dark .inline-ppt { background: #1f2b24; }
 body.dark .voice-note { background: #332b1d; }
 body.dark .voice-note span { color: #dec58e; }
+body.dark .transcript-panel { background: #1b2d24; border-color: #2d4035; }
+body.dark .transcript-heading h3, body.dark .transcript-text { color: #dec58e; }
+body.dark .transcript-heading p, body.dark .transcript-status { color: #a8bcae; }
+body.dark .transcript-text { background: #17231d; border-color: #2d4035; }
 body.dark .essay-section { background: #30291e; border-color: #5a4b30; }
 body.dark .essay-main, body.dark .essay-side { background: rgba(38,31,22,.72); border-color: #5a4b30; }
 body.dark .essay-heading h3, body.dark .essay-main h4, body.dark .essay-main p, body.dark .essay-main blockquote, body.dark .essay-side li { color: #dec58e; }
@@ -365,6 +377,8 @@ body.dark .exercise-question p, body.dark .exercise-keywords span, body.dark .ex
   .section-grid { grid-template-columns: 1fr; }
   .detail-heading { display: block; }
   .detail-heading p { margin-top: 8px; text-align: left; }
+  .transcript-heading { display: block; }
+  .transcript-heading p { margin-top: 8px; text-align: left; }
   .essay-heading { display: block; }
   .essay-heading p { margin-top: 8px; text-align: left; }
   .essay-grid { grid-template-columns: 1fr; }
