@@ -533,7 +533,7 @@
       "cid": 1290564088,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=44",
       "transcriptPath": "transcripts/p44.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p45",
@@ -545,7 +545,7 @@
       "cid": 1290564648,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=45",
       "transcriptPath": "transcripts/p45.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p46",
@@ -557,7 +557,7 @@
       "cid": 1290566955,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=46",
       "transcriptPath": "transcripts/p46.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p47",
@@ -569,7 +569,7 @@
       "cid": 1290567009,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=47",
       "transcriptPath": "transcripts/p47.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p48",
@@ -581,7 +581,7 @@
       "cid": 1290577409,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=48",
       "transcriptPath": "transcripts/p48.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p49",
@@ -593,7 +593,7 @@
       "cid": 1290571721,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=49",
       "transcriptPath": "transcripts/p49.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p50",
@@ -617,7 +617,7 @@
       "cid": 1290573470,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=51",
       "transcriptPath": "transcripts/p51.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p52",
@@ -629,7 +629,7 @@
       "cid": 1290580094,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=52",
       "transcriptPath": "transcripts/p52.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p53",
