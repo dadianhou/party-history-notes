@@ -605,7 +605,7 @@
       "cid": 1290572634,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=50",
       "transcriptPath": "transcripts/p50.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p51",
@@ -641,7 +641,7 @@
       "cid": 1290579830,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=53",
       "transcriptPath": "transcripts/p53.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p54",
@@ -653,7 +653,7 @@
       "cid": 1290578977,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=54",
       "transcriptPath": "transcripts/p54.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p55",
@@ -665,7 +665,7 @@
       "cid": 1290577329,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=55",
       "transcriptPath": "transcripts/p55.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p56",
@@ -701,7 +701,7 @@
       "cid": 1290594824,
       "sourceUrl": "https://www.bilibili.com/video/BV1Nu4y1x7y9?p=58",
       "transcriptPath": "transcripts/p58.txt",
-      "transcriptStatus": "pending"
+      "transcriptStatus": "available"
     },
     {
       "id": "p59",
