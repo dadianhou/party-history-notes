@@ -772,7 +772,7 @@ function renderDetailedNotes(item) {
 }
 
 function renderTranscriptPanel(item) {
-  const file = transcriptFiles[item.id] || (item.transcriptStatus === "available" ? item.transcriptPath : "")
+  const file = transcriptFiles[item.id] || item.transcriptPath
   if (!file) {
     return `<section class="transcript-panel transcript-pending">
       <div class="transcript-heading"><div><span class="eyebrow">课堂原话</span><h3>本节视频逐段转写</h3></div><p>这一节已纳入 143 节完整目录，课堂音频正在逐节处理。</p></div>
@@ -782,8 +782,8 @@ function renderTranscriptPanel(item) {
   return `<section class="transcript-panel">
     <div class="transcript-heading"><div><span class="eyebrow">课堂原话</span><h3>本节视频逐段转写</h3></div><p>原始转写保留老师讲课顺序和时间戳；上方“课堂展开”已经把口语内容校正成复习笔记。</p></div>
     <details class="transcript-details" data-transcript="${file}">
-      <summary>展开本节老师原话</summary>
-      <div class="transcript-status">点击展开后加载本节完整转写</div>
+      <summary>${item.transcriptStatus === "available" ? "展开本节老师原话" : "检查本节课堂转写"}</summary>
+      <div class="transcript-status">${item.transcriptStatus === "available" ? "点击展开后加载本节完整转写" : "转写文件按批次接入，点击后会检查当前版本是否已上传"}</div>
       <pre class="transcript-text"></pre>
     </details>
   </section>`
@@ -801,8 +801,14 @@ async function loadTranscript(details) {
     details.dataset.loaded = "true"
     status.textContent = `已加载 ${value.split(/\r?\n/).filter(Boolean).length} 段课堂转写`
   } catch (error) {
-    status.textContent = "转写暂时加载失败，请刷新页面后重试"
+    status.textContent = responseStatus(error)
   }
+}
+
+function responseStatus(error) {
+  return String(error?.message || "").includes("HTTP 404")
+    ? "本节转写尚未上传，后续批处理完成后会出现在这里"
+    : "转写暂时加载失败，请刷新页面后重试"
 }
 
 function renderEssayNotes(item) {
