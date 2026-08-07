@@ -149,6 +149,58 @@ const lessons = [
   }
 ]
 
+const legacyLessonsById = Object.fromEntries(lessons.map(item => [item.id, item]))
+const moduleGuides = {
+  "党史": { focus: "重大事件的时间、会议内容、历史意义", hook: "时间线 + 会议定位 + 历史转折" },
+  "中特": { focus: "理论主题、核心内容与政策表达", hook: "理论回答什么问题 + 关键词" },
+  "马哲": { focus: "哲学原理、方法论与材料对应", hook: "原理判断 + 反向辨析 + 方法论" },
+  "经济": { focus: "经济概念、政策工具与生活现象", hook: "概念边界 + 传导机制 + 例子" },
+  "中国古代史": { focus: "朝代沿革、制度变化与文化成就", hook: "时间顺序 + 代表人物 + 成就归属" },
+  "科技": { focus: "基础科学、科技史与生活应用", hook: "现象解释 + 原理判断 + 易混知识" },
+  "民法": { focus: "民事主体、权利义务与合同责任", hook: "主体资格 + 法律关系 + 责任后果" },
+  "行政法": { focus: "行政主体、行政行为与救济程序", hook: "权限来源 + 行为类型 + 救济路径" },
+  "刑法": { focus: "犯罪构成、犯罪形态与刑罚适用", hook: "行为定性 + 主观要件 + 责任边界" },
+  "文学": { focus: "文学体裁、代表作品与文化常识", hook: "作者作品 + 时期流派 + 艺术特征" }
+}
+
+function buildGeneratedLesson(meta) {
+  const legacy = legacyLessonsById[meta.id]
+  const guide = moduleGuides[meta.type] || { focus: "课程标题对应的常识与公考考点", hook: "主题识别 + 关键词记忆 + 易错辨析" }
+  const topic = meta.title.replace(/^.*?：/, "").replace(/^第\d+节-?/, "").trim() || meta.title
+  const fallback = {
+    id: meta.id,
+    type: meta.type,
+    title: `${meta.type} · ${meta.title.replace(/^.*?：/, "")}`,
+    duration: meta.duration,
+    subtitle: `围绕“${topic}”建立${meta.type}模块的行测知识框架。`,
+    summary: `本节属于${meta.type}模块，视频主题为“${topic}”。复习时先识别主题，再按“概念/事件—核心内容—常见辨析—题目定位”整理，页面下方保留原视频入口与课堂转写。`,
+    teacher: meta.transcriptStatus === "available"
+      ? "本节课堂原话已接入下方逐段转写；先看主题框架，再用时间戳回听老师对关键词、易错点和题目判断的说明。"
+      : "本节课堂原话正在按视频逐节转写。当前页面先提供准确目录、时长、原视频入口和本模块的复习抓手，转写文件补齐后会自动显示。",
+    table: [["本节主题", topic], ["行测考查定位", guide.focus], ["复习抓手", guide.hook]],
+    mistakes: [["做题顺序", "先判断题目考查的模块和主题，再回到本节关键词，不要只凭熟悉的单个词语作答。"], ["内容状态", meta.transcriptStatus === "available" ? "课堂逐段转写已上传，仍应结合PPT和原视频核对专有名词。" : "本节详细课堂转写尚未上传，页面不把标题推测冒充老师原话。"]],
+    flashes: [["一句话定位", `${meta.type}：${topic}`], ["记忆口令", guide.hook]],
+    sourceUrl: meta.sourceUrl,
+    cid: meta.cid,
+    page: meta.page,
+    transcriptPath: meta.transcriptPath,
+    transcriptStatus: meta.transcriptStatus
+  }
+  return {
+    ...fallback,
+    ...(legacy || {}),
+    id: meta.id,
+    page: meta.page,
+    cid: meta.cid,
+    sourceUrl: meta.sourceUrl,
+    transcriptPath: meta.transcriptPath,
+    transcriptStatus: meta.transcriptStatus,
+    title: legacy?.title || fallback.title,
+    duration: legacy?.duration || meta.duration,
+    type: legacy?.type || meta.type
+  }
+}
+
 const transcriptFiles = {
   p1: "transcripts/p1.txt",
   p2: "transcripts/p2.txt",
@@ -661,11 +713,11 @@ function renderNav() {
   const query = search.value.trim().toLowerCase()
   nav.innerHTML = lessons
     .filter(item => filter === "all" || item.type === filter)
-    .filter(item => !query || `${item.title} ${item.subtitle} ${item.summary} ${item.table.flat().join(" ")}`.toLowerCase().includes(query))
+    .filter(item => !query || `${item.title} ${item.subtitle} ${item.summary} ${(item.table || []).flat().join(" ")}`.toLowerCase().includes(query))
     .map(item => `
       <button class="lesson-link ${item.id === currentId ? "active" : ""}" data-id="${item.id}">
         <span class="lesson-index">${String(lessons.indexOf(item) + 1).padStart(2, "0")}</span>
-        <span><strong>${item.title.replace(" · ", "<br />")}</strong><small>${item.duration} · ${completed.has(item.id) ? "已学" : item.type}</small></span>
+        <span><strong>${item.title.replace(" · ", "<br />")}</strong><small>${item.duration} · ${completed.has(item.id) ? "已学" : item.transcriptStatus === "available" ? "原话已接入" : item.type}</small></span>
       </button>
     `).join("") || `<div class="empty">没有匹配章节</div>`
   nav.querySelectorAll(".lesson-link").forEach(button => button.addEventListener("click", () => {
@@ -720,8 +772,13 @@ function renderDetailedNotes(item) {
 }
 
 function renderTranscriptPanel(item) {
-  const file = transcriptFiles[item.id]
-  if (!file) return ""
+  const file = transcriptFiles[item.id] || (item.transcriptStatus === "available" ? item.transcriptPath : "")
+  if (!file) {
+    return `<section class="transcript-panel transcript-pending">
+      <div class="transcript-heading"><div><span class="eyebrow">课堂原话</span><h3>本节视频逐段转写</h3></div><p>这一节已纳入 143 节完整目录，课堂音频正在逐节处理。</p></div>
+      <div class="transcript-status">转写尚未上传；可先打开 <a href="${item.sourceUrl}" target="_blank" rel="noreferrer">第 ${item.page} 节原视频</a> 学习。</div>
+    </section>`
+  }
   return `<section class="transcript-panel">
     <div class="transcript-heading"><div><span class="eyebrow">课堂原话</span><h3>本节视频逐段转写</h3></div><p>原始转写保留老师讲课顺序和时间戳；上方“课堂展开”已经把口语内容校正成复习笔记。</p></div>
     <details class="transcript-details" data-transcript="${file}">
@@ -884,6 +941,7 @@ function render() {
   const teacher = `<div class="card"><h3>老师强调</h3><blockquote class="quote">${item.teacher}</blockquote></div>`
   const mistakes = item.mistakes?.length ? `<div class="card"><h3>易错辨析</h3><div class="mistake-list">${item.mistakes.map(row => `<div class="mistake"><b>${row[0]}</b><span>${row[1]}</span></div>`).join("")}</div></div>` : ""
   const flashes = item.flashes?.length ? `<div class="card"><h3>复习卡片</h3><div class="flash-grid">${item.flashes.map(row => `<button class="flash"><strong>${row[0]}</strong><span>${row[1]}</span></button>`).join("")}</div></div>` : ""
+  const sourceMeta = `<div class="card source-card"><div><span class="eyebrow">课源与整理状态</span><h3>第 ${item.page || lessons.indexOf(item) + 1} 节 · ${item.duration}</h3><p>${item.transcriptStatus === "available" ? "课堂逐段转写已接入，可展开查看老师原话。" : "已纳入完整课程目录，课堂逐段转写按批次补齐。"}</p></div><a class="text-link" href="${item.sourceUrl || `https://www.bilibili.com/video/BV1Nu4y1x7y9?p=${item.page || lessons.indexOf(item) + 1}`}" target="_blank" rel="noreferrer">打开原视频 ↗</a></div>`
   content.innerHTML = `
     <div class="section-grid">
       <div class="card lead-card">
@@ -897,6 +955,7 @@ function render() {
       ${item.table?.length ? `<div class="card"><h3>核心考点表</h3>${renderTable(item.table, item.id.startsWith("p") && item.type === "中特" ? ["理论 / 概念", "核心表述"] : ["事件 / 关键词", "对应考点"])}</div>` : ""}
       ${mistakes}
       ${flashes}
+      ${sourceMeta}
     </div>
     ${renderDetailedNotes(item)}
     ${renderTranscriptPanel(item)}
@@ -1008,5 +1067,24 @@ document.querySelectorAll(".filter").forEach(button => button.addEventListener("
   render()
 }))
 if (localStorage.getItem("party-note-dark") === "1") document.body.classList.add("dark")
-if (location.hash && lessons.some(item => item.id === location.hash.slice(1))) currentId = location.hash.slice(1)
-render()
+
+async function initCourse() {
+  try {
+    const response = await fetch("./course-manifest.json", { cache: "no-store" })
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const manifest = await response.json()
+    lessons.splice(0, lessons.length, ...manifest.lessons.map(buildGeneratedLesson))
+    const totalSeconds = manifest.course.totalDurationSeconds
+    const hours = Math.floor(totalSeconds / 3600)
+    const minutes = Math.round((totalSeconds % 3600) / 60)
+    document.querySelector("#courseKicker").textContent = `${manifest.course.bvid} · ${manifest.course.totalLessons} 节课程`
+    document.querySelector("#courseTotal").textContent = `${hours}h${String(minutes).padStart(2, "0")}m`
+    document.querySelector("#lessonCount").textContent = `${manifest.course.totalLessons} 节`
+  } catch (error) {
+    showToast("课程目录加载失败，当前显示已整理章节")
+  }
+  if (location.hash && lessons.some(item => item.id === location.hash.slice(1))) currentId = location.hash.slice(1)
+  render()
+}
+
+initCourse()
